@@ -4,9 +4,9 @@ import {
   // createWebHashHistory,
 } from "vue-router";
 
-import HomePage from "@/views/Home_view.vue";
-import AboutPage from "@/views/About_view.vue";
-import Page404 from "@/views/Page404_view.vue";
+import HomePage from "@/views/HomePage.vue";
+import AboutPage from "@/views/AboutPage.vue";
+import Page404 from "@/views/Page404.vue";
 
 const routeHistory = createWebHistory(process.env.BASE_URL);
 

@@ -7,7 +7,7 @@ export const site = {
 };
 
 export const app = {
-  title: "Template",
+  title: "Notes 2",
 };
 
 /////////// Эти ссылки живут в routes.js /////
