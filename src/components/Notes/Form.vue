@@ -17,6 +17,7 @@
 
 <script>
 import TagsList from "@/components/UI/TagsList.vue";
+import tags from "@/seeders/tags.json";
 
 export default {
   components: {
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       value: "",
-      tags: ["home", "work", "travel"],
+      tags: tags,
     };
   },
   methods: {

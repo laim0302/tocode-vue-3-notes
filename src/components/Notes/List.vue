@@ -1,19 +1,26 @@
 <template>
   <div class="notes-list">
     <div class="note-item" v-for="(note, index) in notes" :key="index">
-      <div class="note-header">
-        <p class="note-content">{{ note.title }}</p>
-        <span @click="editNote(note.id)"> &#9998; </span>
-        <span @click="$emit('onRemove', index)"> &#10005; </span>
+      <div v-if="!isEditedNote(note.id)">
+        <div class="note-header">
+          <p class="note-content">{{ note.content }}</p>
+          <span @click="editNote(note.id)"> &#9998; </span>
+          <span @click="$emit('onRemove', note.id)"> &#10005; </span>
+        </div>
+
+        <div class="note-footer">
+          <TagsList
+            isPreview
+            v-if="note.tags && note.tags.length > 0"
+            :items="note.tags"
+          />
+        </div>
       </div>
 
-      <div class="note-footer">
-        <TagsList
-          isPreview
-          v-if="note.tags && note.tags.length > 0"
-          :items="note.tags"
-        />
-      </div>
+      <form v-if="isEditedNote(note.id)" @submit.prevent="updateNote(note.id)">
+        <input type="text" v-model="note.content" name="NoteTitle" required />
+        <button type="submit">Update note</button>
+      </form>
     </div>
   </div>
 </template>
@@ -25,10 +32,29 @@ export default {
   components: {
     TagsList,
   },
+  data() {
+    return {
+      editedNoteId: null,
+    };
+  },
   props: {
     notes: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    editNote(id) {
+      this.editedNoteId = id;
+    },
+    isEditedNote(id) {
+      // Признак редактирования заметки
+      return this.editedNoteId === id;
+    },
+
+    // Update существующей заметки в localStorage
+    updateNote() {
+      this.editedNoteId = null;
     },
   },
 };

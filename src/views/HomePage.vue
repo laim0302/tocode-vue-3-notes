@@ -6,6 +6,7 @@
 <script>
 import Form from "@/components/Notes/Form.vue";
 import List from "@/components/Notes/List.vue";
+import notes from "@/seeders/notes.json";
 
 export default {
   name: "HomeView",
@@ -15,20 +16,7 @@ export default {
   },
   data() {
     return {
-      notes: [
-        {
-          title: "Learn Vue 3",
-          tags: ["work"],
-        },
-        {
-          title: "Finish course",
-          tags: ["work", "home"],
-        },
-        {
-          title: "Hello",
-          tags: [],
-        },
-      ],
+      notes: notes,
     };
   },
   mounted() {
@@ -49,15 +37,16 @@ export default {
         this.notes = JSON.parse(localNotes);
       }
     },
-    handleAddNote(title) {
-      const note = {
-        title: title,
+    handleAddNote(noteContent) {
+      const newNote = {
+        id: Date.now(),
+        content: noteContent,
         tags: [],
       };
-      this.notes.push(note);
+      this.notes.push(newNote);
     },
-    handleRemoveNote(index) {
-      this.notes.splice(index, 1);
+    handleRemoveNote(id) {
+      this.notes = this.notes.filter((note) => note.id !== id);
     },
   },
 };
